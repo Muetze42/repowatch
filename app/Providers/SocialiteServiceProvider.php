@@ -22,8 +22,8 @@ class SocialiteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen(static function (SocialiteWasCalled $event) {
-            $event->extendSocialite('github', Provider::class);
+        Event::listen(static function (SocialiteWasCalled $socialiteWasCalled): void {
+            $socialiteWasCalled->extendSocialite('github', Provider::class);
         });
     }
 }

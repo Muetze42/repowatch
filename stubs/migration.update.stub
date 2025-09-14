@@ -11,22 +11,9 @@ return new class () extends Migration
      */
     public function up(): void
     {
-        Schema::table('{{ table }}', function (Blueprint $table) {
-            //$table->string('new_column')->after('name');
-            //$table->boolean('new_bool')->default(false)->after('');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('{{ table }}', function (Blueprint $table) {
-            //$table->dropColumn([
-            //    'new_column',
-            //    'new_bool',
-            //]);
+        Schema::table('{{ table }}', static function (Blueprint $table) {
+            // $table->string('new_column')->after('name');
+            // $table->boolean('new_bool')->default(false)->after('');
         });
     }
 };
