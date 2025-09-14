@@ -13,35 +13,6 @@
 
 namespace App\Models{
 /**
- * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Provider>
- * @property int $id
- * @property string $name
- * @property string $feed_url
- * @property string|null $website_url
- * @property string $username
- * @property string $password
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Repository> $repositories
- * @property-read int|null $repositories_count
- * @method static \Database\Factories\ProviderFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereFeedUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereUsername($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereWebsiteUrl($value)
- */
-	class Provider extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
  * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Release>
  * @property int $id
  * @property int $repository_id
@@ -52,7 +23,6 @@ namespace App\Models{
  * @property array<array-key, mixed> $files
  * @property \Illuminate\Support\Carbon|null $released_at
  * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Repository $repository
  * @method static \Database\Factories\ReleaseFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release newModelQuery()
@@ -65,7 +35,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereRepositoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereRequire($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereRequireDev($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereVersion($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereVersionNormalized($value)
  */
@@ -76,18 +45,17 @@ namespace App\Models{
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Repository>
  * @property int $id
- * @property int $provider_id
- * @property string $display_name
  * @property string $package_name
- * @property string|null $custom_feed_url
+ * @property string $display_name
+ * @property string $feed_url
  * @property string|null $website_url
  * @property string|null $description
  * @property array<array-key, mixed>|null $tags
- * @property int|null $max_age_days
+ * @property string|null $username
+ * @property string|null $password
+ * @property int $max_age_days
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read string $feed_url
- * @property-read \App\Models\Provider $provider
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Release> $releases
  * @property-read int|null $releases_count
  * @method static \Database\Factories\RepositoryFactory factory($count = null, $state = [])
@@ -95,15 +63,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereCustomFeedUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereDisplayName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereFeedUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereMaxAgeDays($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository wherePackageName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereProviderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereTags($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereUsername($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereWebsiteUrl($value)
  */
 	class Repository extends \Eloquent {}
@@ -119,6 +88,7 @@ namespace App\Models{
  * @property string|null $avatar_url
  * @property bool $admin
  * @property string|null $remember_token
+ * @property int|null $active_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read bool $is_admin
@@ -130,6 +100,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereActiveAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvatarUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
