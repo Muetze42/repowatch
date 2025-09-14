@@ -17,7 +17,7 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $feed_url
- * @property string $website_url
+ * @property string|null $website_url
  * @property string $username
  * @property string $password
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -42,6 +42,38 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Release>
+ * @property int $id
+ * @property int $repository_id
+ * @property string $version
+ * @property string $version_normalized
+ * @property array<array-key, mixed> $require
+ * @property array<array-key, mixed> $require_dev
+ * @property array<array-key, mixed> $files
+ * @property \Illuminate\Support\Carbon|null $released_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Repository $repository
+ * @method static \Database\Factories\ReleaseFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereFiles($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereReleasedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereRepositoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereRequire($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereRequireDev($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereVersion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Release whereVersionNormalized($value)
+ */
+	class Release extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Repository>
  * @property int $id
  * @property int $provider_id
@@ -56,6 +88,9 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string $feed_url
  * @property-read \App\Models\Provider $provider
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Release> $releases
+ * @property-read int|null $releases_count
+ * @method static \Database\Factories\RepositoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository query()
