@@ -50,6 +50,7 @@ class User extends Authenticatable
         return [
             'github_id' => 'int',
             'admin' => 'bool',
+            'active_at' => 'timestamp',
         ];
     }
 

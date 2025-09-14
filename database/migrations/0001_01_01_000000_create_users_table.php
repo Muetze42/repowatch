@@ -20,6 +20,7 @@ return new class () extends Migration
             $table->string('avatar_url')->nullable();
             $table->boolean('admin')->default(false);
             $table->rememberToken();
+            $table->timestamp('active_at')->nullable();
             $table->timestamps();
         });
 
