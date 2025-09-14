@@ -26,11 +26,13 @@ class Repository extends Model
     protected $fillable = [
         'display_name',
         'package_name',
-        'custom_feed_url',
+        'feed_url',
         'website_url',
         'max_age_days',
         'description',
         'tags',
+        'username',
+        'password',
     ];
 
     /**
@@ -39,7 +41,9 @@ class Repository extends Model
      * @var list<string>
      */
     protected $hidden = [
-        'custom_feed_url',
+        'feed_url',
+        'username',
+        'password',
     ];
 
     /**
@@ -52,6 +56,8 @@ class Repository extends Model
         return [
             'max_age_days' => 'int',
             'tags' => 'array',
+            'username' => 'encrypted',
+            'password' => 'encrypted',
         ];
     }
 
@@ -63,18 +69,8 @@ class Repository extends Model
     protected function feedUrl(): Attribute
     {
         return new Attribute(
-            get: fn (): string => $this->custom_feed_url ?: $this->provider->feed_url,
+            get: fn (): string => $this->feed_url ?: $this->provider->feed_url,
         );
-    }
-
-    /**
-     * Get the provider that owns the repository.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Provider, $this>
-     */
-    public function provider(): BelongsTo
-    {
-        return $this->belongsTo(Provider::class);
     }
 
     /**

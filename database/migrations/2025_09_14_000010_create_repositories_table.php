@@ -14,13 +14,14 @@ return new class () extends Migration
     {
         Schema::create('repositories', static function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Provider::class)->constrained()->cascadeOnDelete();
             $table->string('display_name');
             $table->string('package_name');
-            $table->string('custom_feed_url')->nullable();
+            $table->string('feed_url')->nullable();
             $table->string('website_url')->nullable();
             $table->text('description')->nullable();
             $table->json('tags')->nullable();
+            $table->text('username')->nullable();
+            $table->text('password')->nullable();
             $table->unsignedSmallInteger('max_age_days')->nullable();
             $table->timestamps();
         });

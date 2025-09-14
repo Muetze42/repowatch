@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Provider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Repository>
@@ -18,15 +19,15 @@ class RepositoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'provider_id' => Provider::factory(),
-
             'display_name' => fake()->name(),
             'package_name' => fake()->name(),
-            'custom_feed_url' => fake()->url(),
+            'feed_url' => fake()->url(),
             'website_url' => fake()->url(),
             'description' => fake()->text(),
             'tags' => fake()->word(),
             'max_age_days' => fake()->randomNumber(),
+            'username' => fake()->email(),
+            'password' => Hash::make(fake()->password()),
         ];
     }
 }
