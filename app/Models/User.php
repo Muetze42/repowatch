@@ -55,6 +55,8 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is an administrator.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<bool, never>
      */
     protected function isAdmin(): Attribute
     {

@@ -22,6 +22,9 @@ namespace App\Models{
  * @property string $password
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Repository> $repositories
+ * @property-read int|null $repositories_count
+ * @method static \Database\Factories\ProviderFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider query()
@@ -35,6 +38,40 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Provider whereWebsiteUrl($value)
  */
 	class Provider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Repository>
+ * @property int $id
+ * @property int $provider_id
+ * @property string $display_name
+ * @property string $package_name
+ * @property string|null $custom_feed_url
+ * @property string|null $website_url
+ * @property string|null $description
+ * @property array<array-key, mixed>|null $tags
+ * @property int|null $max_age_days
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $feed_url
+ * @property-read \App\Models\Provider $provider
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereCustomFeedUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereDisplayName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereMaxAgeDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository wherePackageName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereProviderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereTags($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereWebsiteUrl($value)
+ */
+	class Repository extends \Eloquent {}
 }
 
 namespace App\Models{

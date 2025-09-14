@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -24,8 +23,6 @@ class ProviderFactory extends Factory
             'website_url' => fake()->url(),
             'username' => fake()->userName(),
             'password' => Hash::make(fake()->password()),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
         ];
     }
 }

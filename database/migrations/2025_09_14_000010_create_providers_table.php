@@ -15,7 +15,7 @@ return new class () extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('feed_url');
-            $table->string('website_url');
+            $table->string('website_url')->nullable();
             $table->text('username');
             $table->text('password');
             $table->timestamps();
