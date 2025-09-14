@@ -62,18 +62,6 @@ class Repository extends Model
     }
 
     /**
-     * Get the feed URL attribute.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
-     */
-    protected function feedUrl(): Attribute
-    {
-        return new Attribute(
-            get: fn (): string => $this->feed_url ?: $this->provider->feed_url,
-        );
-    }
-
-    /**
      * Get the releases for this repository.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Release, $this>
