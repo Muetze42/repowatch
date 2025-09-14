@@ -15,8 +15,6 @@ class {{ class }} extends Model
      */
     use HasFactory;
 
-    //use \Illuminate\Database\Eloquent\SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
