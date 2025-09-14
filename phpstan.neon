@@ -17,16 +17,9 @@ parameters:
 
   level: 8
 
-#  ignoreErrors:
-#    - '#Static call to instance method App\\Support\\Facades\\[a-zA-Z0-9\\_]+.#'
-#    - '#Static call to instance method App\\[a-zA-Z0-9\\_]+\:\:make.#'
-#    - '#Call to an undefined method App\\Support\\Macros\\[a-zA-Z0-9\\_]+.#'
-#    - '#Call to an undefined method Illuminate\\Support\\Carbon::toFrontend\(\).#'
-#    - '#Call to an undefined method Illuminate\\Support\\Carbon::toFrontendTimezone\(\).#'
-#    -
-#      identifier: new.static
-#      paths:
-#        - app/Traits/*
-#        - app/Support/*
-#        - app/ValueObjects/*
-#        - app/*/Concerns/*
+  ignoreErrors:
+# Disable 1 times for user licence validation
+    -
+      identifier: catch.neverThrown
+      path: app/Http/Clients/ComposerClient.php
+      count: 1
