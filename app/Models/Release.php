@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use function Illuminate\Filesystem\join_paths;
 
 /**
+ * @property array<array-key, mixed> $files
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Release>
  */
 class Release extends Model
@@ -125,13 +127,16 @@ class Release extends Model
     /**
      * Generate the full path based on the package name, major version, and version.
      */
-    public function path(string $path = ''): string
+    public function path(string $path = '', bool $full = true): string
     {
         $paths = [
             $this->repository?->package_name,
             $this->major_version,
-            $this->version,
         ];
+
+        if ($full) {
+            $paths[] = $this->version;
+        }
 
         return join_paths(implode('/', $paths), $path);
     }

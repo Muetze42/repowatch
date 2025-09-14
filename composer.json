@@ -17,6 +17,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-zip": "*",
         "laravel/framework": "^12.28",
         "laravel/horizon": "^5.32",
         "laravel/sanctum": "^4.0",

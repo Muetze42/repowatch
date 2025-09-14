@@ -15,7 +15,7 @@ class ComposerClient
     /**
      * The client instance.
      */
-    protected PendingRequest $client;
+    public PendingRequest $client;
 
     public function __construct(public Repository $repository)
     {
@@ -45,7 +45,26 @@ class ComposerClient
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<array-key, array{
+     *     name: string,
+     *     version: string,
+     *     version_normalized: string,
+     *     source: array{
+     *         type: string,
+     *         url: string,
+     *         reference: string,
+     *         shasum: string,
+     *     },
+     *     dist: array{
+     *         type: string,
+     *         url: string,
+     *         reference: string,
+     *         shasum: string,
+     *     },
+     *     require: array<string, string>,
+     *     require-dev: array<string, string>,
+     *     time: string,
+     * }>
      *
      * @throws \Illuminate\Http\Client\RequestException
      * @throws \Illuminate\Http\Client\ConnectionException
