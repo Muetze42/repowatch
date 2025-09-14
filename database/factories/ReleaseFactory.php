@@ -25,6 +25,7 @@ class ReleaseFactory extends Factory
             'require' => (array) fake()->words(),
             'require_dev' => (array) fake()->words(),
             'files' => (array) fake()->words(),
+            'released_at' => fake()->dateTime(),
         ];
     }
 }

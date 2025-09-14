@@ -23,6 +23,9 @@ namespace App\Models{
  * @property array<array-key, mixed> $files
  * @property \Illuminate\Support\Carbon|null $released_at
  * @property \Illuminate\Support\Carbon|null $created_at
+ * @property-read int $major_version
+ * @property-read int $minor_version
+ * @property-read int $patch_version
  * @property-read \App\Models\Repository $repository
  * @method static \Database\Factories\ReleaseFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Release newModelQuery()

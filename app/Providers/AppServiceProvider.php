@@ -80,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function configureModels(): void
     {
-        // Model::automaticallyEagerLoadRelationships();
+        Model::automaticallyEagerLoadRelationships();
         Model::shouldBeStrict(! $this->app->isProduction());
     }
 

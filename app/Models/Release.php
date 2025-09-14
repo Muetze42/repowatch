@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+use function Illuminate\Filesystem\join_paths;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Release>
@@ -38,6 +41,17 @@ class Release extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var list<string>
+     */
+    protected $appends = [
+        'major_version',
+        'minor_version',
+        'patch_version',
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -60,5 +74,65 @@ class Release extends Model
     public function repository(): BelongsTo
     {
         return $this->belongsTo(Repository::class);
+    }
+
+    /**
+     * Get the major version.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
+     */
+    protected function majorVersion(): Attribute
+    {
+        return new Attribute(
+            get: fn (): int => $this->versionPart(0),
+        );
+    }
+
+    /**
+     * Get the minor version.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
+     */
+    protected function minorVersion(): Attribute
+    {
+        return new Attribute(
+            get: fn (): int => $this->versionPart(1),
+        );
+    }
+
+    /**
+     * Get the patch version.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
+     */
+    protected function patchVersion(): Attribute
+    {
+        return new Attribute(
+            get: fn (): int => $this->versionPart(2),
+        );
+    }
+
+    /**
+     * Get a specific part of the version number by an index.
+     */
+    protected function versionPart(int $index): int
+    {
+        $parts = explode('.', $this->version_normalized ?? '0.0.0');
+
+        return (int) ($parts[$index] ?? 0);
+    }
+
+    /**
+     * Generate the full path based on the package name, major version, and version.
+     */
+    public function path(string $path = ''): string
+    {
+        $paths = [
+            $this->repository?->package_name,
+            $this->major_version,
+            $this->version,
+        ];
+
+        return join_paths(implode('/', $paths), $path);
     }
 }
