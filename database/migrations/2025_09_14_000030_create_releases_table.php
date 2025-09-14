@@ -21,7 +21,7 @@ return new class () extends Migration
             $table->json('require_dev');
             $table->json('files');
             $table->timestamp('released_at')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
         });
     }
 };
