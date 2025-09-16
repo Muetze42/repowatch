@@ -2,6 +2,7 @@
 
 namespace App\Http\Clients;
 
+use App\Exceptions\Composer\ComposerTooManyRequestsException;
 use App\Exceptions\Composer\ComposerUnauthorizedException;
 use App\Models\Repository;
 use Illuminate\Http\Client\PendingRequest;
@@ -90,6 +91,10 @@ class ComposerClient
     {
         if ($response->unauthorized() || $response->forbidden()) {
             throw new ComposerUnauthorizedException($response, $response->toException());
+        }
+
+        if ($response->tooManyRequests()) {
+            throw new ComposerTooManyRequestsException($response, $response->toException());
         }
 
         $response->throw();
