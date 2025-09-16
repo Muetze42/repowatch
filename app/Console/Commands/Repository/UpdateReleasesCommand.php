@@ -34,13 +34,15 @@ class UpdateReleasesCommand extends Command
         $repositoryIds = $this->argument('repositoryIds');
 
         if (empty($this->argument('repositoryIds'))) {
-            multiselect(
+            $repositoryIds = multiselect(
                 label: 'Which repositories should be updated?',
                 options: Repository::pluck('package_name', 'id')
             );
         }
 
         Repository::whereIn('id', $repositoryIds)->get()->each(function (Repository $repository): void {
+            $this->info(sprintf('Dispatching job for repository `%s`', $repository->package_name));
+
             UpdateReleasesJob::dispatch($repository);
         });
     }
