@@ -3,7 +3,6 @@
 namespace App\Jobs\Repository;
 
 use App\Enums\QueueNamesEnum;
-use App\Http\Clients\ComposerClient;
 use App\Models\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -41,9 +40,9 @@ class UpdateReleasesJob implements ShouldQueue
             ->pluck('version_normalized')
             ->toArray());
 
-        $client = new ComposerClient($this->repository);
+        $composerClient = $this->repository->composerClient();
 
-        foreach ($client->releases() as $release) {
+        foreach ($composerClient->releases() as $release) {
             if (! $this->shouldCreateRelease($release)) {
                 continue;
             }

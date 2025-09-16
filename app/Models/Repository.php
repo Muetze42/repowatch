@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Clients\ComposerClient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -67,5 +68,13 @@ class Repository extends Model
     public function releases(): HasMany
     {
         return $this->hasMany(Release::class);
+    }
+
+    /**
+     * Create a new ComposerClient instance for this model.
+     */
+    public function composerClient(): ComposerClient
+    {
+        return new ComposerClient($this);
     }
 }

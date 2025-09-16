@@ -182,7 +182,7 @@ class CreateReleaseJob implements ShouldQueue
      */
     protected function initialize(): void
     {
-        $this->client = new ComposerClient($this->repository);
+        $this->client = $this->repository->composerClient();
 
         $this->release = new Release([
             'version' => $this->data['version'],
