@@ -85,7 +85,7 @@ class CreateReleaseJob implements ShouldQueue
     {
         return Arr::mapWithKeys(
             ReleaseStorage::allFiles($this->release->path()),
-            function (string $file) {
+            function (string $file): array {
                 return [$this->relativeReleasePath($file) => ReleaseStorage::checksum($file)];
             }
         );
@@ -129,22 +129,22 @@ class CreateReleaseJob implements ShouldQueue
     /**
      * Extracts and processes nested files within a zip archive. Return true or false if the archive has nested files or not.
      */
-    protected function extractedNested(ZipArchive $zip): bool
+    protected function extractedNested(ZipArchive $zipArchive): bool
     {
         $paths = [];
-        for ($i = 0; $i < $zip->numFiles; $i++) {
-            $paths[] = $zip->getNameIndex($i);
+        for ($i = 0; $i < $zipArchive->numFiles; $i++) {
+            $paths[] = $zipArchive->getNameIndex($i);
         }
 
-        $filteredPaths = Arr::map($paths, static fn (string $path) => trim($path, '/'));
-        $filteredPaths = Arr::where($filteredPaths, static fn (string $path) => ! str_contains($path, '/'));
+        $filteredPaths = Arr::map($paths, static fn (string $path): string => trim($path, '/'));
+        $filteredPaths = Arr::where($filteredPaths, static fn (string $path): bool => ! str_contains($path, '/'));
 
         if (count($filteredPaths) !== 1) {
             return false;
         }
 
         foreach ($paths as $path) {
-            $this->handleNestedPath($zip, $path);
+            $this->handleNestedPath($zipArchive, $path);
         }
 
         return true;
@@ -153,7 +153,7 @@ class CreateReleaseJob implements ShouldQueue
     /**
      * Handle the processing of a nested path within a release archive.
      */
-    protected function handleNestedPath(ZipArchive $zip, string|false $path): void
+    protected function handleNestedPath(ZipArchive $zipArchive, string|false $path): void
     {
         if (! is_string($path)) {
             throw new InvalidReleaseArchiveException('Failed to extract nested files');
@@ -171,7 +171,7 @@ class CreateReleaseJob implements ShouldQueue
             return;
         }
 
-        $stream = $zip->getStream($path);
+        $stream = $zipArchive->getStream($path);
 
         if ($stream === false) {
             throw new InvalidReleaseArchiveException(sprintf('Failed to open stream for file %s', $path));
@@ -191,7 +191,7 @@ class CreateReleaseJob implements ShouldQueue
             'version' => $this->data['version'],
             'version_normalized' => $this->data['version_normalized'],
             'require' => $this->data['require'],
-            'require_dev' => ! empty($this->data['require-dev']) ? $this->data['require-dev'] : [],
+            'require_dev' => empty($this->data['require-dev']) ? [] : $this->data['require-dev'],
             'released_at' => Carbon::parse($this->data['time']),
         ]);
 
