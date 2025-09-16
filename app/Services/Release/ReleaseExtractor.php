@@ -13,6 +13,9 @@ use ZipArchive;
 
 class ReleaseExtractor
 {
+    /**
+     * The new Release instance.
+     */
     protected Release $release;
 
     /**
