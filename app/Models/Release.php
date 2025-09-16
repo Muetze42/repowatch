@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use InvalidArgumentException;
 
 use function Illuminate\Filesystem\join_paths;
 
@@ -122,9 +123,13 @@ class Release extends Model
      */
     protected function versionPart(int $index): int
     {
-        $parts = explode('.', $this->version_normalized ?? '0.0.0');
+        $parts = explode('.', $this->version_normalized);
 
-        return (int) ($parts[$index] ?? 0);
+        if (empty($parts[$index]) || ! is_numeric($parts[$index])) {
+            throw new InvalidArgumentException(sprintf('Invalid version part index for Release [%d]', $this->id));
+        }
+
+        return (int) $parts[$index];
     }
 
     /**
