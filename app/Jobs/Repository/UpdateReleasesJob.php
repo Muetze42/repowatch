@@ -16,6 +16,11 @@ class UpdateReleasesJob implements ShouldQueue
     use Queueable;
 
     /**
+     * @var list<string>
+     */
+    protected array $existingReleases;
+
+    /**
      * Create a new job instance.
      */
     public function __construct(public Repository $repository)
@@ -31,19 +36,48 @@ class UpdateReleasesJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $existingReleases = $this->repository->releases()
+        $this->existingReleases = array_values($this->repository->releases()
             ->where('repository_id', $this->repository->id)
             ->pluck('version_normalized')
-            ->toArray();
+            ->toArray());
 
         $client = new ComposerClient($this->repository);
 
         foreach ($client->releases() as $release) {
-            if (in_array($release['version_normalized'], $existingReleases, true)) {
+            if (! $this->shouldCreateRelease($release)) {
                 continue;
             }
 
             CreateReleaseJob::dispatch($this->repository, $release);
         }
+    }
+
+    /**
+     * Determine if a release should create based on the given release data.
+     *
+     * @param array{
+     *      name: string,
+     *      version: string,
+     *      version_normalized: string,
+     *      source: array{
+     *          type: string,
+     *          url: string,
+     *          reference: string,
+     *          shasum: string,
+     *      },
+     *      dist: array{
+     *          type: string,
+     *          url: string,
+     *          reference: string,
+     *          shasum: string,
+     *      },
+     *      require: array<string, string>,
+     *      require-dev: array<string, string>,
+     *      time: string,
+     *  }  $release
+     */
+    protected function shouldCreateRelease(array $release): bool
+    {
+        return ! in_array($release['version_normalized'], $this->existingReleases);
     }
 }
