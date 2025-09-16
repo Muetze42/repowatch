@@ -85,9 +85,7 @@ class CreateReleaseJob implements ShouldQueue
     {
         return Arr::mapWithKeys(
             ReleaseStorage::allFiles($this->release->path()),
-            function (string $file): array {
-                return [$this->relativeReleasePath($file) => ReleaseStorage::checksum($file)];
-            }
+            fn (string $file): array => [$this->relativeReleasePath($file) => ReleaseStorage::checksum($file)]
         );
     }
 
@@ -97,7 +95,6 @@ class CreateReleaseJob implements ShouldQueue
     protected function relativeReleasePath(string $file): string
     {
         return str_replace($this->release->path() . '/', '', $file);
-        // return trim($file, ReleaseStorage::path($this->release->path()));
     }
 
     /**
