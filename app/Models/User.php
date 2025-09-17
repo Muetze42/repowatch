@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,7 +12,9 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /**
+     * @use HasFactory<\Database\Factories\UserFactory>
+     */
     use HasFactory;
 
     use HasApiTokens;
@@ -55,17 +56,5 @@ class User extends Authenticatable
             'admin' => 'bool',
             'active_at' => 'timestamp',
         ];
-    }
-
-    /**
-     * Determine if the user is an administrator.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<bool, never>
-     */
-    protected function isAdmin(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->admin,
-        );
     }
 }
