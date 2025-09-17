@@ -11,6 +11,7 @@
 {{ $slot }}
 @persist('toast')
 <flux:toast />
+@endpersist
 @fluxScripts
 @vite(['resources/js/app.js'])
 </body>
