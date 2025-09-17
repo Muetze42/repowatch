@@ -125,7 +125,7 @@ class Release extends Model
     {
         $parts = explode('.', $this->version_normalized);
 
-        if (empty($parts[$index]) || ! is_numeric($parts[$index])) {
+        if (! isset($parts[$index]) || ! is_numeric($parts[$index])) {
             throw new InvalidArgumentException(sprintf('Invalid version part index for Release [%d]', $this->id));
         }
 
