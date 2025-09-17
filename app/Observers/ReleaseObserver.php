@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use App\Events\Release\ReleaseDeletedEvent;
 use App\Models\Release;
-use App\Support\Facades\ReleaseStorage;
 
 class ReleaseObserver
 {
@@ -12,8 +12,6 @@ class ReleaseObserver
      */
     public function deleted(Release $release): void
     {
-        if (ReleaseStorage::directoryExists($release->path())) {
-            ReleaseStorage::deleteDirectory($release->path());
-        }
+        ReleaseDeletedEvent::dispatch($release->getKey(), $release->path());
     }
 }
