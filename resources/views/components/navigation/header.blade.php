@@ -5,6 +5,8 @@
     </x-slot>
   </flux:brand>
   <flux:spacer />
+  <flux:button x-data x-show="! $flux.dark" x-on:click="$flux.dark = ! $flux.dark" icon="moon" variant="subtle" aria-label="Toggle to light mode" />
+  <flux:button x-data x-show="$flux.dark" x-on:click="$flux.dark = ! $flux.dark" icon="sun" variant="subtle" aria-label="Toggle to dark mode" />
   <flux:dropdown position="top" align="start">
     <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
     <flux:menu>
