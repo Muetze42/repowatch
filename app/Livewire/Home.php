@@ -2,40 +2,26 @@
 
 namespace App\Livewire;
 
-use Illuminate\Contracts\View\View as ViewInterface;
+use App\Models\Repository;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class Home extends Component
 {
     /**
+     * @var \Illuminate\Database\Eloquent\Collection<array-key, \App\Models\Repository>
+     */
+    public Collection $repositories;
+
+    /**
      * Called when a component created.
      */
     public function mount(): void
     {
-        //
-    }
-
-    /**
-     * Called before updating a component property.
-     */
-    public function updating(string $property, mixed $value): void
-    {
-        //
-    }
-
-    /**
-     * Called after updating a property.
-     */
-    public function updated(string $property, mixed $value): void
-    {
-        //
-    }
-
-    /**
-     * Get the view / view contents that represent the component.
-     */
-    public function render(): ViewInterface
-    {
-        return view('livewire.home');
+        $this->repositories = Repository::orderBy('package_name')
+            ->withCount('releases')
+            ->withMax('releases', 'released_at')
+            ->get()
+            ->append(['vendor', 'name', 'latest_release_date']);
     }
 }

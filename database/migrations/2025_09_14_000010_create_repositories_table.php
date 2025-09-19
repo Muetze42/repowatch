@@ -18,7 +18,6 @@ return new class () extends Migration
             $table->string('feed_url');
             $table->string('website_url')->nullable();
             $table->text('description')->nullable();
-            $table->json('tags')->nullable();
             $table->text('username')->nullable();
             $table->text('password')->nullable();
             $table->unsignedSmallInteger('max_age_days')->default(365);

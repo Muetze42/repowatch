@@ -13,6 +13,7 @@
 
 namespace App\Models{
 /**
+ * @property array<array-key, mixed> $files
  * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\Release>
  * @property int $id
  * @property int $repository_id
@@ -20,7 +21,6 @@ namespace App\Models{
  * @property string $version_normalized
  * @property array<array-key, mixed> $require
  * @property array<array-key, mixed> $require_dev
- * @property array<array-key, mixed> $files
  * @property \Illuminate\Support\Carbon|null $released_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property-read int $major_version
@@ -53,7 +53,6 @@ namespace App\Models{
  * @property string $feed_url
  * @property string|null $website_url
  * @property string|null $description
- * @property array<array-key, mixed>|null $tags
  * @property string|null $username
  * @property string|null $password
  * @property int $max_age_days
@@ -73,7 +72,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereMaxAgeDays($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository wherePackageName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereTags($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereUsername($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Repository whereWebsiteUrl($value)
@@ -83,6 +81,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @mixin \Illuminate\Database\Eloquent\Builder<\App\Models\User>
  * @property int $id
  * @property int|null $github_id
  * @property string $github_login
@@ -94,7 +93,6 @@ namespace App\Models{
  * @property int|null $active_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read bool $is_admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens

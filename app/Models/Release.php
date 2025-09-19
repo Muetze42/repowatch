@@ -85,7 +85,7 @@ class Release extends Model
     /**
      * Get the major version.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<int, never>
      */
     protected function majorVersion(): Attribute
     {
@@ -97,7 +97,7 @@ class Release extends Model
     /**
      * Get the minor version.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<int, never>
      */
     protected function minorVersion(): Attribute
     {
@@ -109,7 +109,7 @@ class Release extends Model
     /**
      * Get the patch version.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<string, never>
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute<int, never>
      */
     protected function patchVersion(): Attribute
     {
