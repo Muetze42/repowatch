@@ -22,7 +22,7 @@
             </div>
             <div class="mt-2">
               <flux:button variant="primary" icon="git-branch" :href="route('repositories.index', $repository->only(['vendor', 'name']))" wire:navigate>
-                Compare <span class="font-mono">{{ $repository->package_name }}</span> releases
+                <span class="max-sm:hidden">Compare</span> <span class="font-mono">{{ $repository->package_name }}</span> <span class="max-sm:hidden">releases</span>
               </flux:button>
             </div>
           </div>

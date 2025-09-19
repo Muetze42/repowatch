@@ -31,5 +31,5 @@
 }
 
 body {
-  @apply pb-14;
+  @apply pb-16 lg:pb-12;
 }
