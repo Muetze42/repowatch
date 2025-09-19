@@ -18,7 +18,7 @@
               <flux:text>
                 Latest Release:
               </flux:text>
-              <x-tooltip-date :date="$repository->latest_release_date" wire-key="repository-tooltip-{{ $repository->id }}" />
+              <x-ui.tooltip-date :date="$repository->latest_release_date" wire-key="repository-tooltip-{{ $repository->id }}" />
             </div>
             <div class="mt-2">
               <flux:button variant="primary" icon="git-branch" :href="route('repositories.index', $repository->only(['vendor', 'name']))" wire:navigate>
