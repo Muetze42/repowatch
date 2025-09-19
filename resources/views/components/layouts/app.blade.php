@@ -8,7 +8,9 @@
   @fluxAppearance
 </head>
 <body>
+<x-header />
 {{ $slot }}
+<x-footer />
 @persist('toast')
 <flux:toast />
 @endpersist

@@ -28,3 +28,7 @@
     --color-accent-foreground: var(--color-white);
   }
 }
+
+[data-flux-main]:first-of-type {
+  @apply pb-28;
+}

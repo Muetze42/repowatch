@@ -1,4 +1,6 @@
-@php $attributes = $unescapedForwardedAttributes ?? $attributes; @endphp
+@pure
+
+{{-- Credit: Simple Icons (https://simpleicons.org) --}}
 
 @props([
     'variant' => 'outline',
