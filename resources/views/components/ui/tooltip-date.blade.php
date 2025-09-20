@@ -10,13 +10,13 @@ if (! $date instanceof \Carbon\Carbon) {
 @endphp
 
 <span
-  x-data="{ localizedTime: '' }"
+  x-data="{ localizedTime: '{{ $date->toDateTimeLocalString() }}' }"
   x-init="
         const dateObject = new Date('{{ $date->toIso8601String() }}');
         localizedTime = dateObject.toLocaleString(undefined, {
             year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
